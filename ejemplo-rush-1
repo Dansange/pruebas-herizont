@@ -1,0 +1,14 @@
+float lon = relbbox(0,@P).z;
+float hei = relbbox(0,@P).y;
+float thi = relbbox(0,@P).x;;
+float minu = ch("minu"), maxu = ch("maxu"), minv = ch("minv"), maxv = ch("maxv");
+float uOffset = ch("uOffset"), vOffset = ch("vOffset");
+float fitu = fit01(lon,minu,maxu) + uOffset;
+float fitv = fit01(hei,minv,maxv) + vOffset;
+vector customUv = set(fitu,fitv,0);
+vector uvPos = uvsample(1,"P","uv",customUv);
+vector uvN = uvsample(1,"N","uv",customUv);
+vector uvColor = uvsample(1,"Cd","uv", customUv);
+v@P = uvPos;
+v@P += uvN*thi*ch("thickness");
+v@Cd = uvColor;
